@@ -62,14 +62,13 @@
  *  Dependencies on other include files:
  */
 
-//#include <X11/Xlib.h>
 #include "faketypes.h"
 
 /*
  *  Constants and macros:
  */
 
-#define DIALOGUE_WIDTH 		((int) (PLAY_WIDTH / 1.3))
+#define DIALOGUE_WIDTH 		448 // ((int) (PLAY_WIDTH / 1.3))
 #define DIALOGUE_HEIGHT 	120
 
 #define DISK_ICON			1
