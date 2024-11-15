@@ -64,33 +64,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 //#include <X11/Xlib.h>
 //#include <X11/Xutil.h>
 //#include <X11/Xos.h>
 //#include <xpm.h>
 
-#include "error.h"
-#include "misc.h"
-#include "gun.h"
-#include "main.h"
-#include "init.h"
-#include "file.h"
-#include "inst.h"
-#include "stage.h"
-#include "blocks.h"
-#include "sfx.h"
-#include "special.h"
-#include "ball.h"
-#include "score.h"
-#include "paddle.h"
-#include "level.h"
-#include "mess.h"
-#include "audio.h"
-#include "intro.h"
-#include "keys.h"
-#include "version.h"
+#include "include/error.h"
+#include "include/misc.h"
+//#include "include/gun.h"
+#include "include/main.h"
+#include "include/init.h"
+#include "include/file.h"
+#include "include/inst.h"
+#include "include/stage.h"
+//#include "include/blocks.h"
+#include "include/sfx.h"
+#include "include/special.h"
+//#include "include/ball.h"
+#include "include/score.h"
+//#include "include/paddle.h"
+#include "include/level.h"
+#include "include/mess.h"
+#include "include/audio.h"
+#include "include/intro.h"
+//#include "include/keys.h"
+#include "include/version.h"
 
-#include "preview.h"
+#include "include/faketypes.h"
+#include "include/preview.h"
 
 /*
  *  Internal macro definitions:
