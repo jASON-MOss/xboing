@@ -75,6 +75,12 @@ typedef struct {
     int pixel;
 } XColor;
 
+typedef struct{
+    int attributes;
+    unsigned long valuemask;
+    int XpmColormap;
+}XpmAttributes;
+
 // GC Values (from X11)
 typedef enum {
     LineSolid,
