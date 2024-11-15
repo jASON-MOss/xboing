@@ -92,6 +92,7 @@
 #include "include/version.h"
 
 #include "include/faketypes.h"
+#include "include/imake.h"
 #include "include/preview.h"
 
 /*
