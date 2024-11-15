@@ -50,44 +50,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 //#include <X11/Xlib.h>
 //#include <X11/Xutil.h>
 //#include <X11/Xos.h>
 //#include <xpm.h>
 
-#include "error.h"
-#include "misc.h"
-#include "gun.h"
-#include "main.h"
-#include "init.h"
-#include "inst.h"
-#include "stage.h"
-#include "blocks.h"
-#include "sfx.h"
-#include "special.h"
-#include "ball.h"
-#include "score.h"
-#include "paddle.h"
-#include "level.h"
-#include "mess.h"
-#include "audio.h"
-#include "version.h"
+#include "include/error.h"
+#include "include/misc.h"
+//#include "include/gun.h"
+#include "include/main.h"
+#include "include/init.h"
+#include "include/inst.h"
+#include "include/stage.h"
+//#include "include/blocks.h"
+#include "include/sfx.h"
+#include "include/special.h"
+//#include "include/ball.h"
+#include "include/score.h"
+//#include "include/paddle.h"
+#include "include/level.h"
+#include "include/mess.h"
+#include "include/audio.h"
+#include "include/version.h"
 
-#include "bitmaps/presents/titleBig.xpm"
+//#include "bitmaps/presents/titleBig.png"
 
-#include "bitmaps/stars/star1.xpm"
-#include "bitmaps/stars/star2.xpm"
-#include "bitmaps/stars/star3.xpm"
-#include "bitmaps/stars/star4.xpm"
-#include "bitmaps/stars/star5.xpm"
-#include "bitmaps/stars/star6.xpm"
-#include "bitmaps/stars/star7.xpm"
-#include "bitmaps/stars/star8.xpm"
-#include "bitmaps/stars/star9.xpm"
-#include "bitmaps/stars/star10.xpm"
-#include "bitmaps/stars/star11.xpm"
-
-#include "intro.h"
+/*
+#include "bitmaps/stars/star1.png"
+#include "bitmaps/stars/star2.png"
+#include "bitmaps/stars/star3.png"
+#include "bitmaps/stars/star4.png"
+#include "bitmaps/stars/star5.png"
+#include "bitmaps/stars/star6.png"
+#include "bitmaps/stars/star7.png"
+#include "bitmaps/stars/star8.png"
+#include "bitmaps/stars/star9.png"
+#include "bitmaps/stars/star10.png"
+#include "bitmaps/stars/star11.png"
+*/
+#include "include/faketypes.h"
+#include "include/intro.h"
 
 /*
  *  Internal macro definitions:
@@ -119,7 +122,8 @@ enum IntroStates waitMode;
 
 void SetUpIntroduction(Display *display, Window window, Colormap colormap)
 {
-	XpmAttributes   attributes;
+  /*
+  XpmAttributes   attributes;
 	int             XpmErrorStatus;
 
     attributes.valuemask = XpmColormap;
@@ -130,6 +134,7 @@ void SetUpIntroduction(Display *display, Window window, Colormap colormap)
 	HandleXPMError(display, XpmErrorStatus, "InitialiseIntro()");
 
     /* Create the stars for the letter shine */
+  /*
 	XpmErrorStatus = XpmCreatePixmapFromData(display, window, star1_xpm,
 		&stars[0], &starsM[0], &attributes);
 	HandleXPMError(display, XpmErrorStatus, "InitialiseIntro(star1)");
@@ -175,9 +180,9 @@ void SetUpIntroduction(Display *display, Window window, Colormap colormap)
 	HandleXPMError(display, XpmErrorStatus, "InitialiseIntro(star11)");
 
     /* Free the xpm pixmap attributes */
-	XpmFreeAttributes(&attributes);
+  //XpmFreeAttributes(&attributes);
 
-	ResetIntroduction();
+  //ResetIntroduction();
 }
 
 void DrawIntroTitle(Display *display, Window window, int x, int y)
@@ -204,6 +209,7 @@ static void DoBlocks(Display *display, Window window)
 	SetCurrentMessage(display, messWindow, "Welcome to XBoing", False);
 
 	/* Now draw the blocks on the screen */
+	/*
 	DrawTheBlock(display, window, x, y, RED_BLK, 0, 0, 0);
 	DrawShadowText(display, window, textFont, 
 		"- Normal block", x + 60, y, green);
@@ -260,6 +266,7 @@ static void DoBlocks(Display *display, Window window)
 	y += 40;
 
 	/* New line from top again on right */
+	/*
 	y = 120;
 	x = 260;
 
@@ -317,6 +324,7 @@ static void DoBlocks(Display *display, Window window)
 	DrawShadowText(display, window, textFont, 
 		"- Sticky Ball", x + 60, y, green);
 	y += 40;
+	*/
 }
 
 static void DoText(Display *display, Window window)
@@ -337,7 +345,7 @@ static void DoSparkle(Display *display, Window window)
 	static int x = 100;
 	static int y = 20;
 	static int in = 0;
-
+	/*
 	if (!store)
 	{
 		store = XCreatePixmap(display, window, 20, 20,
@@ -368,6 +376,7 @@ static void DoSparkle(Display *display, Window window)
 			y = (rand() % 74) + 5;
 		}	
 	}
+	*/
 }
 
 static void DoFinish(Display *display, Window window)
@@ -456,7 +465,7 @@ void RedrawIntroduction(Display *display, Window window)
 void FreeIntroduction(Display *display)
 {
 	int i;
-
+	/*
 	for (i = 0; i < 10; i++)
 	{
     	if (stars[i])	XFreePixmap(display, stars[i]);         
@@ -465,6 +474,7 @@ void FreeIntroduction(Display *display)
 
     if (bigtitlePixmap)		XFreePixmap(display, bigtitlePixmap);         
 	if (bigtitlePixmapM)	XFreePixmap(display, bigtitlePixmapM);
+	*/
 }
 
 void ResetIntroduction(void)
