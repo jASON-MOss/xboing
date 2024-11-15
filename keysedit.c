@@ -50,30 +50,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 //#include <X11/Xlib.h>
 //#include <X11/Xutil.h>
 //#include <X11/Xos.h>
 //#include <xpm.h>
 
-#include "error.h"
-#include "highscore.h"
-#include "special.h"
-#include "misc.h"
-#include "sfx.h"
-#include "main.h"
-#include "init.h"
-#include "stage.h"
-#include "blocks.h"
-#include "ball.h"
-#include "score.h"
-#include "paddle.h"
-#include "level.h"
-#include "mess.h"
-#include "version.h"
-#include "audio.h"
-#include "intro.h"
+#include "include/error.h"
+#include "include/highscore.h"
+#include "include/special.h"
+#include "include/misc.h"
+#include "include/sfx.h"
+#include "include/main.h"
+#include "include/init.h"
+#include "include/stage.h"
+//#include "include/blocks.h"
+//#include "include/ball.h"
+#include "include/score.h"
+//#include "include/paddle.h"
+#include "include/level.h"
+#include "include/mess.h"
+#include "include/version.h"
+#include "include/audio.h"
+#include "include/intro.h"
 
-#include "keysedit.h"
+#include "include/faketypes.h"
+#include "include/keysedit.h"
 
 /*
  *  Internal macro definitions:
@@ -216,7 +218,7 @@ static void DoSparkle(Display *display, Window window)
 
 	if (frame >= endFrame)
 		KeysEditState = KEYSEDIT_FINISH;
-
+	/*
 	if (!store)
 	{
 		store = XCreatePixmap(display, window, 20, 20,
@@ -225,10 +227,10 @@ static void DoSparkle(Display *display, Window window)
 
 	if (in == 0) 
 		XCopyArea(display, window, store, gc, x, y, 20, 20, 0, 0);
-
+	*/
 	if (frame == startFrame)
 	{
-		XCopyArea(display, store, window, gc, 0, 0, 20, 20, x, y);
+	  //XCopyArea(display, store, window, gc, 0, 0, 20, 20, x, y);
 		RenderShape(display, window, stars[in], starsM[in],
 			x, y, 20, 20, False);
 
@@ -237,7 +239,7 @@ static void DoSparkle(Display *display, Window window)
 
 		if (in == 11) 
 		{
-			XCopyArea(display, store, window, gc, 0, 0, 20, 20, x, y);
+		  //XCopyArea(display, store, window, gc, 0, 0, 20, 20, x, y);
 			in = 0;
 			startFrame = frame + 500;
 			x = (rand() % 474) + 5;
