@@ -65,19 +65,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 //#include <X11/Xlib.h>
 //#include <X11/Xutil.h>
 //#include <X11/Xos.h>
 
-#include "error.h"
-#include "level.h"
-#include "init.h"
-#include "stage.h"
-#include "intro.h"
-#include "main.h"
-#include "misc.h"
+#include "include/error.h"
+#include "include/level.h"
+#include "include/init.h"
+#include "include/stage.h"
+#include "include/intro.h"
+#include "include/main.h"
+#include "include/misc.h"
 
-#include "mess.h"
+#include "include/faketypes.h"
+#include "include/mess.h"
 
 /*
  *  Internal macro definitions:
@@ -154,17 +156,17 @@ void DrawMessage(Display *display, Window window, char *message, int clear,
 	int plen;
 
 	/* Clear the message window */
-	XClearWindow(display, window);
+	//XClearWindow(display, window);
 
 	/* Obtain the text width so it can be centered */
-    plen = XTextWidth(textFont, message, len);
+	//plen = XTextWidth(textFont, message, len);
 
 	/* Draw the string in the message window */
 	DrawTextFast(display, window, ((PLAY_WIDTH/2) - plen) / 2, 5,
 		textFont, ci, message, len);
 
 	/* Just to be sure, flush the display */
-	XFlush(display);
+	//XFlush(display);
 }
 
 /**
@@ -241,6 +243,6 @@ void DisplayCurrentMessage(Display *display, Window window)
 			DrawMessage(display, window, "", False, green);
 
 		/* To be sure to be sure */
-		XFlush(display);
+		//XFlush(display);
 	}
 }

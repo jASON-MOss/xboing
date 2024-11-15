@@ -80,6 +80,8 @@ typedef struct{
     unsigned long valuemask;
     int XpmColormap;
 }XpmAttributes;
+typedef int XClearWindow;
+typedef int XTextWidth;
 
 // GC Values (from X11)
 typedef enum {
