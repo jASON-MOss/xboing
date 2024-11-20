@@ -64,6 +64,7 @@
 
 // TODO: Remove instances of X11-associated data types
 #include "faketypes.h"
+#include "raylib.h"
 
 /*
  *  Constants and macros:

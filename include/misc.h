@@ -73,7 +73,7 @@
  * @param colour The color of the text
  * @param numChar The number of characters of "string" to draw
  */
-void 	DrawText(Display *display, Window window, int x, int y, 
+void 	XDrawText(Display *display, Window window, int x, int y, 
 			XFontStruct *font, int colour, char *text, int numChar);
 
 /**
@@ -88,7 +88,7 @@ void 	DrawText(Display *display, Window window, int x, int y,
  * @param colour The color of the text
  * @param numChar The number of characters of "string" to draw
  */
-void 	DrawTextFast(Display *display, Window window, int x, int y, 
+void 	XDrawTextFast(Display *display, Window window, int x, int y, 
 			XFontStruct *font, int colour, char *text, int numChar);
 
 /**
@@ -103,7 +103,7 @@ void 	DrawTextFast(Display *display, Window window, int x, int y,
  * @param colour The color of the line
  * @param width The width of the line (in px)
  */
-void 	DrawLine(Display *display, Window window, int x, int y, int x2, int y2,
+void 	XDrawLine(Display *display, Window window, int x, int y, int x2, int y2,
 			int colour, int width);
 
 /**
