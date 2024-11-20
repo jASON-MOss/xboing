@@ -19,10 +19,8 @@
 #include <stddef.h>
 #include <time.h>
 
-//#include <X11/Xlib.h>
-//#include <X11/Xutil.h>
-//#include <X11/Xos.h>
-//#include <xpm.h>
+#include "include/imake.h"
+#include "include/faketypes.h"
 
 #include "audio.h"
 #include "misc.h"
@@ -110,7 +108,7 @@ void SetupStage(Display *display, Window window)
     sprintf(str2, "- %s -", GetLevelName());
     SetCurrentMessage(display, messWindow, str2, True);
 
-    XFlush(display);
+    // XFlush(display);
 }
 
 int LoadSavedGame(Display *display, Window window)
@@ -200,7 +198,7 @@ int LoadSavedGame(Display *display, Window window)
     sprintf(str, "Resuming: %s", GetLevelName());
     SetCurrentMessage(display, messWindow, str, True);
 
-    XFlush(display);
+    // XFlush(display);
 
 	return True;
 }
@@ -308,7 +306,7 @@ int ReadNextLevel(Display *display, Window window, char *levelName, int draw)
     fgets(levelTitle, BUF_SIZE, levelFile);
 
     /* Remove the carriage return in the title */
-    temp = strchr(levelTitle, '\n');
+    // temp = strchr(levelTitle, '\n');
     *temp = '\0';
 
     if (debug == True) sprintf(str, "level #%ld : <%s>", level, levelTitle);
