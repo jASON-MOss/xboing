@@ -52,6 +52,7 @@
 #include <stddef.h>
 #include <time.h>
 #include <assert.h>
+#include <string.h>
 //#include <X11/Xlib.h>	//Replace with RAyLib
 //#include <X11/Xutil.h>	//Replace with RayLib
 //#include <X11/Xos.h>	//Repalce with RayLib
@@ -63,28 +64,29 @@
 *
 */
 
-#include "bitmaps/balls/life.xpm"
+//#include "bitmaps/balls/life.xpm"
 
-#include "error.h"
-#include "audio.h"
-#include "dialogue.h"
-#include "special.h"
-#include "intro.h"
-#include "gun.h"
-#include "init.h"
-#include "stage.h"
-#include "sfx.h"
-#include "score.h"
-#include "paddle.h"
-#include "blocks.h"
-#include "bonus.h"
-#include "highscore.h"
-#include "ball.h"
-#include "main.h"
-#include "mess.h"
-#include "misc.h"
-#include "file.h"
+#include "include/error.h"
+#include "include/audio.h"
+#include "include/dialogue.h"
+#include "include/special.h"
+#include "include/intro.h"
+//#include "include/gun.h"
+#include "include/init.h"
+#include "include/stage.h"
+#include "include/sfx.h"
+#include "include/score.h"
+//#include "include/paddle.h"
+//#include "include/blocks.h"
+//#include "include/bonus.h"
+#include "include/highscore.h"
+//#include "include/ball.h"
+#include "include/main.h"
+#include "include/mess.h"
+#include "include/misc.h"
+#include "include/file.h"
 
+#include "include/faketypes.h"
 #include "level.h"
 
 /*
@@ -136,16 +138,16 @@ void InitialiseLevelInfo(Display *display, Window window, Colormap colormap)
 	XpmAttributes   attributes;
 	int 			XpmErrorStatus;
 
-	attributes.valuemask = XpmColormap;
-	attributes.colormap = colormap;
+	attributes.valuemask = colormap;
+	attributes.Xpmcolormap = colormap;
 
 	/* Create xpm pixmap for the life */
-	XpmErrorStatus = XpmCreatePixmapFromData(display, window, life_xpm, 
+	/*XpmErrorStatus = XpmCreatePixmapFromData(display, window, life_xpm, 
 		&lifePixmap, &lifeMask, &attributes);
 	HandleXPMError(display, XpmErrorStatus, "InitialiseLevelInfo()");
-
+	*/
 	/* Free the xpm pixmap attributes */
-	XpmFreeAttributes(&attributes);
+	//XpmFreeAttributes(&attributes);
 }
 
 /** 
@@ -230,7 +232,7 @@ static void DrawLevelTimeBonus(Display *display, Window window, int timebonus)
 	len = strlen(str);
 
 	/* Draw the text now thanks  - using title font for big numbers */
-	XClearWindow(display, window);
+	//XClearWindow(display, window);
 	DrawText(display, window, 2, 7, titleFont, black, str, len);
 
 	/* The less time you have the more drastic the colour comes */
@@ -265,7 +267,7 @@ void DisplayLevelInfo(Display *display, Window window, u_long level)
 	int i;
 
 	/* Clear the window for level information */
-	XClearWindow(display, levelWindow);
+	//XClearWindow(display, levelWindow);
 
 	DisplayLevelNumber(display, levelWindow, level);
 
@@ -279,7 +281,7 @@ void DisplayLevelInfo(Display *display, Window window, u_long level)
 	/* Draw all the bullets in the ammo pouch ;-) */
 	ReDrawBulletsLeft(display);
 
-	XFlush(display);
+	//XFlush(display);
 }
 
 void SetLevelNumber(int levelNum)
@@ -370,8 +372,9 @@ void RedrawLevelInfo(Display *display, Window window)
 void FreeLevelInfo(Display *display)
 {
 	/* Free the life pixmap  */
-	if (lifePixmap)		XFreePixmap(display, lifePixmap);
+	/*if (lifePixmap)		XFreePixmap(display, lifePixmap);
 	if (lifeMask)		XFreePixmap(display, lifeMask);
+	*/
 }
 
 /** 
@@ -383,22 +386,23 @@ void FreeLevelInfo(Display *display)
 */
 void DeleteABullet(Display *display)
 {
-	bulletPos = 192 - (GetNumberBullets() * 9);
+  //bulletPos = 192 - (GetNumberBullets() * 9);
 
 	/* Take a bullet away from ammo belt */
-	EraseTheBullet(display, levelWindow, bulletPos, 43);
+	/*EraseTheBullet(display, levelWindow, bulletPos, 43);
 
 	DecNumberBullets();
+	*/
 }
 
 void AddABullet(Display *display)
 {
-	IncNumberBullets();
+  /*IncNumberBullets();
 
 	bulletPos = 192 - (GetNumberBullets() * 9);
-
+  */
 	/* Add a bullet to the ammo belt */
-	DrawTheBullet(display, levelWindow, bulletPos, 43);
+  //DrawTheBullet(display, levelWindow, bulletPos, 43);
 }
 
 /** 
@@ -413,11 +417,12 @@ void ReDrawBulletsLeft(Display *display)
 	int x, i;
 
 	/* Draw the bullets in the ammo belt */
-	for (i = 0; i < GetNumberBullets(); i++)
+	/*for (i = 0; i < GetNumberBullets(); i++)
 	{
 		x = 192 - ((i+1) * 9);
 		DrawTheBullet(display, levelWindow, x, 43);
 	} 
+	*/
 }
 
 /** 
@@ -531,20 +536,21 @@ void CheckGameRules(Display *display, Window window)
 
 	HandleGameTimer(display, window);
 
-	if (StillActiveBlocks() == False)
+	/*if (StillActiveBlocks() == False)
 	{
 		/* Turn off the x2 x4 bonuses so bonus screen is x2 or x4 */
-		Togglex2Bonus(display, False);
+	/*Togglex2Bonus(display, False);
 		Togglex4Bonus(display, False);
 		DrawSpecials(display);
 
 		/* Give the play a big head with some applause */
-		if (noSound == False) playSoundFile("applause", 70);
+	//if (noSound == False) playSoundFile("applause", 70);
 
 		/* Finished level now so set up bonus screen */
-        mode = MODE_BONUS;
+        /*mode = MODE_BONUS;
 		SetupBonusScreen(display, mainWindow);
 	}
+	*/
 }
 
 /** 
@@ -630,29 +636,30 @@ void DeadBall(Display *display, Window window)
 	/* More than one ball on screen - 1 died */
 	SetCurrentMessage(display, messWindow, "Another one bites the dust!", True);		//C Bool Lib
 
-	if (livesLeft <= 0 && GetAnActiveBall() == -1)
+	/*if (livesLeft <= 0 && GetAnActiveBall() == -1)
 		EndTheGame(display, window);
 	else 
 	{
 		/* Start a new ball if some to spare */
-		if (GetAnActiveBall() == -1 && livesLeft > 0)
+	/*if (GetAnActiveBall() == -1 && livesLeft > 0)
 		{
 			/* Last ball on screen died so start a new one */
-			SetCurrentMessage(display, messWindow, "Balls Terminated!", True);			//C Bool Lib
+	/*SetCurrentMessage(display, messWindow, "Balls Terminated!", True);			//C Bool Lib
 
 			SetReverseOff();
 			DrawSpecials(display);
 
 			/* Make the paddle the maximum size */
-			ChangePaddleSize(display, window, PAD_EXPAND_BLK);
+	/*ChangePaddleSize(display, window, PAD_EXPAND_BLK);
 			ChangePaddleSize(display, window, PAD_EXPAND_BLK);
 
 			/* Decrement the number of lives left and display so */
-			DecExtraLife(display);
+	/*DecExtraLife(display);
 
 			ResetBallStart(display, window);
 		}
 	}
+	*/
 }
 
 /** 
