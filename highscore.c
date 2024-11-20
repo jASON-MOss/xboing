@@ -58,11 +58,10 @@
 #include <time.h>
 #include <file.h>
 #include <sys/param.h>
-//#include <X11/Xlib.h>
-//#include <X11/Xutil.h>
-//#include <X11/Xos.h>
-#include <netinet/in.h>
-//#include <xpm.h>
+
+#include "include/faketypes.h"
+#include "include/imake.h"
+#include "raylib.h"
 
 #include "error.h"
 #include "misc.h"
@@ -83,7 +82,7 @@
 #include "intro.h"
 #include "presents.h"
 
-#include "bitmaps/highscr.xpm"
+//#include "bitmaps/highscr.xpm"
 
 #include "highscore.h"
 
@@ -116,6 +115,17 @@
 /*
  *  Internal type declarations:
  */
+
+// determine if ntohl() is needed or can be replaced
+// function added to simplify compile
+static int ntohl(int x);
+static int htonl(int x);
+static int getuid();
+
+
+
+
+
 
 static void SetHighScoreWait(enum HighScoreStates newMode, int waitFrame);
 static void InitialiseHighScores(void);
@@ -168,16 +178,15 @@ void SetUpHighScore(Display *display, Window window, Colormap colormap)
 	XpmAttributes   attributes;
 	int             XpmErrorStatus;
 
-	attributes.valuemask = XpmColormap;
-	attributes.colormap = colormap;
+	attributes.valuemask = colormap;
+	attributes.XpmColormap = colormap;
 
 	/* Load the highscore title pixmap */
-	XpmErrorStatus = XpmCreatePixmapFromData(display, window, highscores_xpm,
-		&titlePixmap, &titlePixmapM, &attributes);
-	HandleXPMError(display, XpmErrorStatus, "InitialiseHighScore()");
+	// XpmErrorStatus = XpmCreatePixmapFromData(display, window, highscores_xpm, &titlePixmap, &titlePixmapM, &attributes);
+	// HandleXPMError(display, XpmErrorStatus, "InitialiseHighScore()");
 
     /* Free the xpm pixmap attributes */
-	XpmFreeAttributes(&attributes);
+	// XpmFreeAttributes(&attributes);
 
 	/* Setup the high score table */
 	InitialiseHighScores();
@@ -266,39 +275,39 @@ static void DoHighScores(Display *display, Window window)
 	/* Draw the titles for the highscore table */
 	strcpy(string, "#");
 	len = strlen(string);
-	DrawText(display, window, xr+2, y+2, textFont, black, string, len);
-	DrawText(display, window, xr, y, textFont, yellow, string, len);
+	XDrawText(display, window, xr+2, y+2, textFont, black, string, len);
+	XDrawText(display, window, xr, y, textFont, yellow, string, len);
 
 	strcpy(string, "Score");
 	len = strlen(string);
-	DrawText(display, window, xs+2, y+2, textFont, black, string, len);
-	DrawText(display, window, xs, y, textFont, yellow, string, len);
+	XDrawText(display, window, xs+2, y+2, textFont, black, string, len);
+	XDrawText(display, window, xs, y, textFont, yellow, string, len);
 
 	strcpy(string, "L");
 	len = strlen(string);
-	DrawText(display, window, xl+2, y+2, textFont, black, string, len);
-	DrawText(display, window, xl, y, textFont, yellow, string, len);
+	XDrawText(display, window, xl+2, y+2, textFont, black, string, len);
+	XDrawText(display, window, xl, y, textFont, yellow, string, len);
 
 	strcpy(string, "Time");
 	len = strlen(string);
-	DrawText(display, window, xt+2, y+2, textFont, black, string, len);
-	DrawText(display, window, xt, y, textFont, yellow, string, len);
+	XDrawText(display, window, xt+2, y+2, textFont, black, string, len);
+	XDrawText(display, window, xt, y, textFont, yellow, string, len);
 
 	strcpy(string, "Date");
 	len = strlen(string);
-	DrawText(display, window, xg+2, y+2, textFont, black, string, len);
-	DrawText(display, window, xg, y, textFont, yellow, string, len);
+	XDrawText(display, window, xg+2, y+2, textFont, black, string, len);
+	XDrawText(display, window, xg, y, textFont, yellow, string, len);
 
 	strcpy(string, "Player");
 	len = strlen(string);
-	DrawText(display, window, xn+2, y+2, textFont, black, string, len);
-	DrawText(display, window, xn, y, textFont, yellow, string, len);
+	XDrawText(display, window, xn+2, y+2, textFont, black, string, len);
+	XDrawText(display, window, xn, y, textFont, yellow, string, len);
 
 	y += textFont->ascent + GAP / 2;
 
 	/* Draw the line above the table */
-	DrawLine(display, window, 22, y+2, PLAY_WIDTH - 18, y+2, black, 3);
-	DrawLine(display, window, 20, y, PLAY_WIDTH - 20, y, white, 3);
+	XDrawLine(display, window, 22, y+2, PLAY_WIDTH - 18, y+2, black, 3);
+	XDrawLine(display, window, 20, y, PLAY_WIDTH - 20, y, white, 3);
 
 	y += textFont->ascent;
 
@@ -396,8 +405,8 @@ static void DoHighScores(Display *display, Window window)
 	}
 
 	/* Draw the line above the table */
-	DrawLine(display, window, 22, y+2, PLAY_WIDTH - 18, y+2, black, 3);
-	DrawLine(display, window, 20, y, PLAY_WIDTH - 20, y, white, 3);
+	XDrawLine(display, window, 22, y+2, PLAY_WIDTH - 18, y+2, black, 3);
+	XDrawLine(display, window, 20, y, PLAY_WIDTH - 20, y, white, 3);
 
 	SetHighScoreWait(HIGHSCORE_SPARKLE, frame + 2);
 }
@@ -438,8 +447,7 @@ static void DoSparkle(Display *display, Window window)
 	if (!store)
 	{
 		/* Create some backing store for the sparkle star */
-		store = XCreatePixmap(display, window, 20, 20,
-			DefaultDepth(display, XDefaultScreen(display)));
+		//store = XCreatePixmap(display, window, 20, 20, DefaultDepth(display, XDefaultScreen(display)));
 	}
 
 	if (frame == endFrame)
@@ -455,7 +463,7 @@ static void DoSparkle(Display *display, Window window)
 	}
 
 	if (sindex == 0)
-		XCopyArea(display, window, store, gc, x, sparkley, 20, 20, 0, 0);
+		//XCopyArea(display, window, store, gc, x, sparkley, 20, 20, 0, 0);
 
 	if (frame == nextFrame)
 	{
@@ -470,7 +478,7 @@ static void DoSparkle(Display *display, Window window)
 		/* Last frame of sparkle so reset */
 		if (sindex == 11)
 		{
-			XCopyArea(display, store, window, gc, 0, 0, 20, 20, x, sparkley);
+			//XCopyArea(display, store, window, gc, 0, 0, 20, 20, x, sparkley);
 
 			sindex = 0;
 			nextFrame = frame + 100;
@@ -1027,8 +1035,8 @@ void RedrawHighScore(Display *display, Window window)
 void FreeHighScore(Display *display)
 {
 	/* Free up those memory leaks thanks */
-	if (titlePixmap) 	XFreePixmap(display, titlePixmap);
-	if (titlePixmapM) 	XFreePixmap(display, titlePixmapM);
+	//if (titlePixmap) 	XFreePixmap(display, titlePixmap);
+	//if (titlePixmapM) 	XFreePixmap(display, titlePixmapM);
 }
 
 void ResetHighScore(int type)
@@ -1088,7 +1096,7 @@ static int LockUnlock(int cmd)
 	/* Ok - if successful then lock or unlock the file */
 	if (inter != -1) 
 #ifndef USE_FLOCK
-		lockf(inter, theCmd, sizeof(highScores));
+		//lockf(inter, theCmd, sizeof(highScores));
 #else
 		flock(inter, theCmd);
 #endif
@@ -1107,3 +1115,9 @@ static int LockUnlock(int cmd)
 	/* Return success status */
 	return inter;
 }
+
+static int ntohl(int x) { return x; }
+
+static int htonl(int x) { return x; }
+
+static int getuid() { return 0; }

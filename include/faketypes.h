@@ -82,7 +82,7 @@ typedef struct{
 } XpmAttributes;
 
 typedef int XClearWindow;
-typedef int XTextWidth;
+//typedef int XTextWidth;
 
 // GC Values (from X11)
 typedef enum {
@@ -189,6 +189,12 @@ typedef enum{
 #define KeyPress  0
 #define Expose    1
 
+#define F_LOCK    0
+#define F_ULOCK   1
+#define O_CREAT   2
+#define O_RDWR    3
+
+
 
 // Mouse Events
 
@@ -269,5 +275,9 @@ typedef struct{
 typedef struct {
     int compose_index;
 } XComposeStatus;
+
+
+int XTextWidth(XFontStruct *textFont, char *string, int len); 
+void XClearArea(Display *display, Window window, int x, int y, int width, int height, int flag);
 
 #endif
