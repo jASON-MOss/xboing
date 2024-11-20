@@ -79,7 +79,8 @@ typedef struct{
     int attributes;
     unsigned long valuemask;
     int XpmColormap;
-}XpmAttributes;
+} XpmAttributes;
+
 typedef int XClearWindow;
 typedef int XTextWidth;
 

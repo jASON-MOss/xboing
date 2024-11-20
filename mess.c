@@ -162,7 +162,7 @@ void DrawMessage(Display *display, Window window, char *message, int clear,
 	//plen = XTextWidth(textFont, message, len);
 
 	/* Draw the string in the message window */
-	DrawTextFast(display, window, ((PLAY_WIDTH/2) - plen) / 2, 5,
+	XDrawTextFast(display, window, ((PLAY_WIDTH/2) - plen) / 2, 5,
 		textFont, ci, message, len);
 
 	/* Just to be sure, flush the display */

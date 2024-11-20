@@ -139,7 +139,7 @@ void InitialiseLevelInfo(Display *display, Window window, Colormap colormap)
 	int 			XpmErrorStatus;
 
 	attributes.valuemask = colormap;
-	attributes.Xpmcolormap = colormap;
+	attributes.XpmColormap = colormap;
 
 	/* Create xpm pixmap for the life */
 	/*XpmErrorStatus = XpmCreatePixmapFromData(display, window, life_xpm, 
@@ -233,15 +233,15 @@ static void DrawLevelTimeBonus(Display *display, Window window, int timebonus)
 
 	/* Draw the text now thanks  - using title font for big numbers */
 	//XClearWindow(display, window);
-	DrawText(display, window, 2, 7, titleFont, black, str, len);
+	XDrawText(display, window, 2, 7, titleFont, black, str, len);
 
 	/* The less time you have the more drastic the colour comes */
 	if (timebonus <= 10)
-		DrawText(display, window, 0, 5, titleFont, red, str, len);
+		XDrawText(display, window, 0, 5, titleFont, red, str, len);
 	else if (timebonus <= 60)
-		DrawText(display, window, 0, 5, titleFont, yellow, str, len);
+		XDrawText(display, window, 0, 5, titleFont, yellow, str, len);
 	else 
-		DrawText(display, window, 0, 5, titleFont, green, str, len);
+		XDrawText(display, window, 0, 5, titleFont, green, str, len);
 }
 
 /** 

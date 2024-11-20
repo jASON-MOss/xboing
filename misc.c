@@ -139,7 +139,7 @@ void sleepSync(Display *display, unsigned long ms)
  * @param colour The color of the line
  * @param width The width of the line (in px)
  */
-void DrawLine(Display *display, Window window, int x, int y, int x2, int y2, 
+void XDrawLine(Display *display, Window window, int x, int y, int x2, int y2, 
 	int colour, int width)
 {
 	/* Change the width of the line */
@@ -224,7 +224,7 @@ void DrawShadowText(Display *display, Window window, XFontStruct *font,
  * @param colour The color of the text
  * @param numChar The number of characters of "string" to draw
  */
-void DrawTextFast(Display *display, Window window, int x, int y, XFontStruct *font, 
+void XDrawTextFast(Display *display, Window window, int x, int y, XFontStruct *font, 
 	int colour, char *text, int numChar)
 {
 	int len = strlen(text);
@@ -255,7 +255,7 @@ void DrawTextFast(Display *display, Window window, int x, int y, XFontStruct *fo
  * @param colour The color of the text
  * @param numChar The number of characters of "string" to draw
  */
-void DrawText(Display *display, Window window, int x, int y, XFontStruct *font, 
+void XDrawText(Display *display, Window window, int x, int y, XFontStruct *font, 
 	int colour, char *text, int numChar)
 {
 	int len = strlen(text);

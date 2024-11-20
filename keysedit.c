@@ -17,7 +17,7 @@
  * In no event shall the author be liable to any party for direct, indirect,
  * special, incidental, or consequential damages arising out of the use of
  * this software and its documentation, even if the author has been advised
- * of the possibility of such damage.
+ * of the possibility of such damage.Dar
  *
  * The author specifically disclaims any warranties, including, but not limited
  * to, the implied warranties of merchantability and fitness for a particular
@@ -130,8 +130,8 @@ static void DoText(Display *display, Window window)
 
 	y = 160;
 
-    DrawLine(display, window, 32, y+2, PLAY_WIDTH - 28, y+2, black, 3);
-    DrawLine(display, window, 30, y, PLAY_WIDTH - 30, y, white, 3);
+    XDrawLine(display, window, 32, y+2, PLAY_WIDTH - 28, y+2, black, 3);
+    XDrawLine(display, window, 30, y, PLAY_WIDTH - 30, y, white, 3);
 	y += textFont->ascent;
 
     /* Loop through all text printing it centred */
@@ -201,8 +201,8 @@ static void DoText(Display *display, Window window)
 
 	y += textFont->ascent + GAP / 2;
 
-    DrawLine(display, window, 32, y+2, PLAY_WIDTH - 28, y+2, black, 3);
-    DrawLine(display, window, 30, y, PLAY_WIDTH - 30, y, white, 3);
+    XDrawLine(display, window, 32, y+2, PLAY_WIDTH - 28, y+2, black, 3);
+    XDrawLine(display, window, 30, y, PLAY_WIDTH - 30, y, white, 3);
 
 	strcpy(string, "Insert coin to start the game");
 	DrawShadowCentredText(display, window, textFont, string, 
