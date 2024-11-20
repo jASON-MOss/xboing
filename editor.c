@@ -65,11 +65,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
-// TODO: REMOVE X11 #include <X11/Xlib.h>
-// TODO: REMOVE X11 #include <X11/Xutil.h>
-// TODO: REMOVE X11 #include <X11/Xos.h>
-// TODO: REMOVE X11 #include <X11/keysym.h>
-//#include <xpm.h>
+#include <string.h>
+
+#include "include/faketypes.h"
+#include "raylib.h"
+#include "include/imake.h"
 
 #include "include/error.h"
 #include "include/misc.h"
@@ -164,7 +164,7 @@ void SetUpEditor(display, window, colormap)
 	ResetEditor();
 }
 
-static void DrawEditorGrid(Display *display, Window window)
+
 /**
  * @brief Draws the grid for the editor
  *
@@ -174,9 +174,7 @@ static void DrawEditorGrid(Display *display, Window window)
  * @todo Remove reliance on X11
  *
  */
-static void DrawEditorGrid(display, window)
-	Display *display;
-	Window window;
+static void DrawEditorGrid(Display *display, Window window)
 {
 	/* Draw a grid on editor window */
 	int x, y, xinc, yinc;
@@ -185,12 +183,12 @@ static void DrawEditorGrid(display, window)
 	yinc = PLAY_HEIGHT / MAX_ROW;
 
 	for (x = xinc; x <= PLAY_WIDTH; x += xinc)
-		DrawLine(display, window, x, 0, x, 
+		XDrawLine(display, window, x, 0, x, 
 			(PLAY_HEIGHT - 4 - ((MAX_ROW - MAX_ROW_EDIT) * yinc)), reds[4], 1);
 
 	for (y = yinc; y <= PLAY_HEIGHT - ((MAX_ROW - MAX_ROW_EDIT) * yinc); 
 		y += yinc)
-		DrawLine(display, window, 0, y, PLAY_WIDTH, y, reds[4], 1);
+		XDrawLine(display, window, 0, y, PLAY_WIDTH, y, reds[4], 1);
 }
 
 /**
@@ -216,15 +214,12 @@ static void DoLoadLevel(display, window)
 		ErrorMessage("Cannot resize main window");
 	SetWindowSizeHints(display, oldWidth + EDITOR_TOOL_WIDTH, oldHeight);
 
-	XMapWindow(display, blockWindow);
-	XMapWindow(display, typeWindow);
+	// XMapWindow(display, blockWindow);
+	// XMapWindow(display, typeWindow);
 
-	XFlush(display);
+	//XFlush(display);
 
-    XSelectInput(display, playWindow,
-    	KeyPressMask | KeyReleaseMask | ButtonPressMask |
-        ButtonReleaseMask | ButtonMotionMask | ExposureMask |
-        StructureNotifyMask | PointerMotionHintMask);
+    // XSelectInput(display, playWindow, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask | ButtonMotionMask | ExposureMask | StructureNotifyMask | PointerMotionHintMask);
 
     DrawStageBackground(display, window, 3, True);
     DrawStageBackground(display, blockWindow, 3, True);
@@ -282,11 +277,6 @@ static void RedrawEditorArea(display, window)
 
 
 static void ClearEditorInfo(void)
-/**
- * @brief Destroys editor page
- *
- */
-static void ClearEditorInfo()
 {
 	int i;
 
@@ -296,7 +286,7 @@ static void ClearEditorInfo()
     	/* Destroy the region of the block */
     	if (EditorInfo[i].clickArea != (Region) NULL)
     	{
-        	XDestroyRegion(EditorInfo[i].clickArea);
+        	// XDestroyRegion(EditorInfo[i].clickArea);
         	EditorInfo[i].clickArea = (Region) NULL;
     	}
 
@@ -323,8 +313,7 @@ static int CheckBlockClicked(int x, int y)
     	if (EditorInfo[i].clickArea != (Region) NULL)
     	{
 		    /* See if the point intersects with the block's region */
-            if (XPointInRegion(EditorInfo[i].clickArea, x, y))
-				return i;
+            // if (XPointInRegion(EditorInfo[i].clickArea, x, y)) 				return i;
     	}
 	}
 
@@ -345,7 +334,7 @@ void SetCurrentSymbol(Display *display, int i)
 {
 	int y;
 
-	XClearWindow(display, typeWindow);
+	// XClearWindow(display, typeWindow);
 
 	y = ((TYPE_HEIGHT / 2) - ((dataFont->ascent + dataFont->descent) / 2));
 	DrawShadowText(display, typeWindow, dataFont, 
@@ -427,7 +416,7 @@ static void SetupBlockEditorInfo(int x, int y, int w, int h, int type, int i,
     points[4].y = points[0].y;
 
     /* Create the click region for the edit block */
-    EditorInfo[i].clickArea = XPolygonRegion(points, 5, EvenOddRule);
+    // EditorInfo[i].clickArea = XPolygonRegion(points, 5, EvenOddRule);
     EditorInfo[i].symbolType = type;
     EditorInfo[i].slideIndex = slide;
 }
@@ -501,21 +490,19 @@ static void DoFinish(Display *display, Window window)
 
 	ChangePointer(display, playWindow, CURSOR_NONE);
 	ChangePointer(display, mainWindow, CURSOR_NONE);
-	XUnmapWindow(display, blockWindow);
-	XUnmapWindow(display, typeWindow);
-	XFlush(display);
+	// XUnmapWindow(display, blockWindow);
+	// XUnmapWindow(display, typeWindow);
+	// XFlush(display);
 
 	if (!ResizeMainWindow(display, mainWindow, oldWidth, oldHeight))
 		ErrorMessage("Cannot resize main window");
 	SetWindowSizeHints(display, oldWidth, oldHeight);
-	XFlush(display);
+	// XFlush(display);
 
     mode = MODE_INTRO;
     ResetIntroduction();
 
-    XSelectInput(display, playWindow,
-    	KeyPressMask | KeyReleaseMask | ButtonPressMask |
-        ButtonReleaseMask | ExposureMask | StructureNotifyMask);
+    // XSelectInput(display, playWindow, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask | ExposureMask | StructureNotifyMask);
 
     if (noSound == False) playSoundFile("evillaugh", 50);
 
@@ -1410,7 +1397,7 @@ void Editor(Display *display, Window window)
 void RedrawEditor(Display *display, Window window)
 {
 }
-*/
+
 
 /**
  * @brief Free editor action

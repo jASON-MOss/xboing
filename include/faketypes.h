@@ -168,7 +168,7 @@ typedef enum{
 
 #define XK_space  32
 #define XK_Left   0
-#define XK_Right  0
+#define XK_Right  1
 #define XK_asciitilde  126
 #define XK_Escape      27
 #define XK_Return      013
@@ -199,8 +199,8 @@ typedef enum{
 // Mouse Events
 
 #define Button1  0
-#define Button2  0
-#define Button3  0
+#define Button2  1
+#define Button3  2
 
 #define CURSOR_PLUS   0
 #define CURSOR_POINT  0
