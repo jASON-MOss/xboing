@@ -67,15 +67,16 @@
 //#include <X11/Xos.h>
 //#include <xpm.h>
 
-#include "error.h"
-#include "init.h"
-#include "special.h"
-#include "misc.h"
-#include "main.h"
+#include "include/error.h"
+#include "include/init.h"
+#include "include/special.h"
+#include "include/misc.h"
+#include "include/main.h"
 
-#include "score.h"
+#include "include/faketypes.h"
+#include "include/score.h"
 
-#include "bitmaps/digits/digit0.xpm"
+/*#include "bitmaps/digits/digit0.xpm"
 #include "bitmaps/digits/digit1.xpm"
 #include "bitmaps/digits/digit2.xpm"
 #include "bitmaps/digits/digit3.xpm"
@@ -85,7 +86,7 @@
 #include "bitmaps/digits/digit7.xpm"
 #include "bitmaps/digits/digit8.xpm"
 #include "bitmaps/digits/digit9.xpm"
-
+*/
 /*
  *  Internal macro definitions:
  */
@@ -127,7 +128,7 @@ void InitialiseScoreDigits(Display *display, Window window, Colormap colormap)
 	attributes.colormap = colormap;
 
 	/* Create all xpm pixmap digits from the files */
-	XpmErrorStatus = XpmCreatePixmapFromData(display, window, digit0_xpm, 
+	/*XpmErrorStatus = XpmCreatePixmapFromData(display, window, digit0_xpm, 
 		&digitPixmaps[0], &digitPixmapsM[0], &attributes);
 	HandleXPMError(display, XpmErrorStatus, "InitialiseScoreDigits()");
 
@@ -168,7 +169,7 @@ void InitialiseScoreDigits(Display *display, Window window, Colormap colormap)
 	HandleXPMError(display, XpmErrorStatus, "InitialiseScoreDigits()");
 
 	/* Free the xpm pixmap attributes */
-	XpmFreeAttributes(&attributes);
+	//XpmFreeAttributes(&attributes);
 }
 
 /**
@@ -284,7 +285,7 @@ u_long ComputeScore(u_long inc)
 void DisplayScore(Display *display, Window window, u_long score)
 {
 	/* Erase the old score in the window */
-	XClearWindow(display, window);
+	//XClearWindow(display, window);
 
 	/* Draw a zero if no score */
 	if (score == 0L)
@@ -311,7 +312,8 @@ void FreeScoreDigits(Display *display)
 	for (i = 0; i < NUM_DIGITS; i++)
 	{
 		/* Free the digits pixmap and mask */
-		if (digitPixmaps[i])	XFreePixmap(display, digitPixmaps[i]);
+		/*if (digitPixmaps[i])	XFreePixmap(display, digitPixmaps[i]);
 		if (digitPixmapsM[i])	XFreePixmap(display, digitPixmapsM[i]);
+		*/
 	}
 }
